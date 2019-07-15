@@ -1,0 +1,105 @@
+html, body { 
+  margin:0; 
+  padding:0; 
+  height:100%; 
+  background-color: #ddddff;
+}
+
+/*Text colors and style*/
+.good{background-color: #96ff96;padding-left:.5em;padding-right:.5em;border-radius:.5em;}
+.bad{background-color: #ff9696;padding-left:.5em;padding-right:.5em;border-radius:.5em;}
+.yeild{background-color: #ffff94;padding-left:.5em;padding-right:.5em;border-radius:.5em;}
+.off{background-color: #969696;padding-left:.5em;padding-right:.5em;border-radius:.5em;}
+.hilight{background-color:ffeeee;}
+
+/*GUI and Icons*/
+.nav-icon{width:.8em;
+  height:.8em;
+  border-radius:.6em;
+  padding:.5em;
+  vertical-align: middle;}
+.nav-icon-sq{width:.8em;
+  height:.8em;
+  border-radius:.6em;
+  padding:.5em;
+  vertical-align: middle;}
+.nav-icon:hover{background-color: #ffffff;}
+.nav-icon-sq:hover{background-color: #ffffff;}
+.rot45d{transform: rotate(45deg);}
+
+
+/*Search*/
+#ViewMoreSearchButton{padding-left:.4em;padding-right:.2em;}
+#search{
+	background-color: #eaeaff;
+	padding:.8em;
+	border-radius:.8em;
+	width:30em;float:left;}
+#in0{clear:left;}
+
+/*Main*/
+#main{
+	max-width:50%;
+	width:90em;
+	float:left;
+}
+	
+/*ViewPane*/
+.viewpane{	
+	width:100%;
+	background-color: #ffffff;
+	display:none;
+	padding:.8em;
+	border-radius:.8em;
+	clear:left;
+	height:100%;
+	min-height:13em;}
+.low{width:100%;}
+.viewnav{
+	width:100%;
+	background-color: #eaeaff;
+}
+.max{
+  box-shadow: 2em 2em 10em grey;
+  position: fixed;
+   /*position: fixed; /* or absolute */
+  top: 50%;
+  left: 50%;
+  
+  min-width:50%;
+  min-height:50%;
+  width:min-content;
+  height:min-content;
+  /*transform: translate(-25%, -25%);*/
+  transform: translate(-50%, -50%);
+  margin-right:5em;
+}
+/*Stat*/
+#stat{
+	position:fixed;bottom: 0;left:0;background-color:#999999;
+	padding-left:.5em;padding-right:.5em;padding-top:.5em;
+	border-top-right-radius:.5em;
+	}
+
+/*Side Navigation*/
+#nav1{
+	min-width:5em;
+	position: fixed;
+  right: 0;
+  top: 0;
+  overflow-y:scroll;
+  overflow-x:hidden;
+  max-height: 100%;
+  background-color: #eaeaff;
+	border-radius:.8em;}
+#nav1sub0{width:10em;}
+#navbottom{  
+  position: fixed;
+ 
+  right: 0;
+  bottom: 0;}
+form, table {
+     display:inline;
+     margin:0px;
+     padding:0px;
+}

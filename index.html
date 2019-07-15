@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>MPA</title>
+	<script src="mainAPP.js"></script>
+	<link rel="stylesheet" type="text/css" href="main.css"/>
+  </head>
+<body>
+
+<div id="search">
+ <form id="SearchForm" onsubmit="ClickFirstOption();return false;">
+  <input id="SearchData" value="ADUsers" type="hidden"/>
+  <input id="in0" onkeyup="searchData();"/>
+ </form>
+ <span id="AdvS"></span>
+ <img id="ViewMoreSearchButton" class="nav-icon" src="images/right-arrow.svg" onclick="ViewMoreSearch();"/>
+ <br/>
+ <div id="col0" style="float:left;min-width:10em;"></div>
+ <div id="col1" style="float:left;min-width:10em;"></div>
+ <div id="col2" style="float:left;min-width:5em;"></div>
+ <br/ style="clear:left;"><div id="LockedOutUsers"></div>
+</div>
+
+<div id="main">
+<!-- Main Modules Will Load Here-->
+
+<div id="nav1">
+<div id='nav1sub0'></div>
+</div>
+
+<div id="stat" onclick="MaxStat();"></div>
+
+<script>
+//Load HTML for Modules
+Modules.forEach(function(element) {
+	$("#main").prepend('<div id="view'+element+'pane" class="viewpane"></div>');
+	$("#view"+element+"pane").load("mainModules\\"+element+".html", function() {
+		//add Nav bar and Buttons
+		$("#view"+element+"pane").prepend('<div class="viewnav"></div>');
+		$("#view"+element+"pane>.viewnav").append('<a href="#" onclick="ClearHide(\'view'+element+'pane\');" style="float:right;"><img class="nav-icon" src="images/cancel.svg"/></a>');
+		$("#view"+element+"pane>.viewnav").append('<a href="#" onclick="Max(\'view'+element+'pane\');" style="float:right;"><img class="nav-icon-sq" src="images/browser.svg"/></a>');
+	})
+});
+
+LoadViewPanes();
+
+ClearStat();
+//GetLockedOutUsers();
+</script>
+</body>
+</html>

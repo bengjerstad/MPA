@@ -6,6 +6,13 @@ const fs = require('fs');
 const {shell} = require('electron');
 const electron = require('electron');
 
+//Set external program and file paths
+var path = {};
+//SetPath to folder that conatains data
+path.data = "Data\\";
+//add other programs here.
+path.OtherProgram = "C:\\Program Files\\...";
+
 //globals
 //  Modules Global
 var Modules = [];

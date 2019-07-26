@@ -32,19 +32,23 @@
 <div id="stat" onclick="MaxStat();"></div>
 
 <script>
-//Load HTML for Modules
+//Load HTML for Main Modules
 Modules.forEach(function(element) {
-	$("#main").prepend('<div id="view'+element+'pane" class="viewpane"></div>');
-	$("#view"+element+"pane").load("mainModules\\"+element+".html", function() {
-		//add Nav bar and Buttons
-		$("#view"+element+"pane").prepend('<div class="viewnav"></div>');
-		$("#view"+element+"pane>.viewnav").append('<a href="#" onclick="ClearHide(\'view'+element+'pane\');" style="float:right;"><img class="nav-icon" src="images/cancel.svg"/></a>');
-		$("#view"+element+"pane>.viewnav").append('<a href="#" onclick="Max(\'view'+element+'pane\');" style="float:right;"><img class="nav-icon-sq" src="images/browser.svg"/></a>');
-	})
+	$("#main").prepend('<div id="view'+element+'pane" class="viewpane"></div>')
+	.ready(function() {
+		//Add Nav Bar
+		$("#view"+element+"pane").append('<div class="viewnav"></div>').ready(function() {
+				//Add default buttons to nav bar
+				$("#view"+element+"pane>.viewnav").append('<a href="#" onclick="ClearHide(\'view'+element+'pane\');" style="float:right;"><img class="nav-icon" src="images/cancel.svg"/></a>');
+				$("#view"+element+"pane>.viewnav").append('<a href="#" onclick="Max(\'view'+element+'pane\');" style="float:right;"><img class="nav-icon-sq" src="images/browser.svg"/></a>');
+			});
+		//Add content and run main module code
+		$("#view"+element+"pane").append('<div class="viewcontent"></div>')
+		.ready(function() {
+			$("#view"+element+"pane>.viewcontent").load("mainModules\\"+element+".html");
+		});
+	});
 });
-
-LoadViewPanes();
-
 ClearStat();
 //GetLockedOutUsers();
 </script>

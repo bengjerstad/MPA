@@ -22,13 +22,17 @@ function ShowMD(file,loc){
 	fs.readFile(path.Markdowndata+loc+'\\'+file, 'utf8', function (err, data) {
   		if (err) {Stat('Error: '+err);}
 		$("#viewMD").html(marked(data));
-		$("#viewMDnav").html('<a href="#" onclick="EditMD(\''+file+'\',\''+loc+'\');">Edit</a>');
+		//Add Edit Button to Nav Bar
+		$("#MarkdownEditButton").remove();
+		$("#viewMarkdownpane>.viewnav").prepend('<a id="MarkdownEditButton" href="#" onclick="EditMD(\''+file+'\',\''+loc+'\');">Edit</a>');
 		$("#viewMarkdownpane").show("fast");
 	});
 	 
 }
 function NewMD(loc){
 	$("#viewMD").html('<h1>New '+loc+'</h1>Name: <input id="MDName"/> <a href="#" onclick="NewMDCallBack(\''+loc+'\');">Add</a>');
+	$("#MarkdownEditButton").remove();
+	$("#viewMarkdownpane").show("fast");
 }
 function NewMDCallBack(loc){
 	file = $("#MDName").val();
@@ -41,8 +45,9 @@ function EditMD(file,loc){
 	fs.readFile(path.Markdowndata+loc+'\\'+file, 'utf8', function (err, data) {
   		if (err) {Stat('Error: '+err);}
 		$("#viewMD").html('<textarea id="MDData" cols="91" rows="50">'+data+'</textarea>');
-		$("#viewMDlow").html('Edit '+loc+'\\'+file+' <a href="#" onclick="SaveMD(\''+file+'\',\''+loc+'\');">Save</a>');
-		//$("#stat").html('Editing '+loc+'\\'+file);
+		//Add Save Button to Nav Bar remove edit button
+		$("#viewMarkdownpane>.viewnav").prepend('<span>Edit: '+loc+'\\'+file+'</span> <a id="MarkdownSaveButton" href="#" onclick="SaveMD(\''+file+'\',\''+loc+'\');">Save</a>');
+		$("#MarkdownEditButton").remove();
 	});
 	 
 }
@@ -54,6 +59,8 @@ function SaveMD(file,loc){
 		else{
 			Stat('Saved '+loc+'\\'+file);
 			ShowMD(file,loc);
+			$("#MarkdownSaveButton").remove();
+			$("#viewMarkdownpane>.viewnav>span").remove();
 		}
 	});	 
 }

@@ -34,13 +34,6 @@ function Max(id){
 function Min(id){
 	$("#"+id).removeClass('max');
 }
-// Build GUI elements
-function LoadViewPanes(){
-	$( ".viewpane" ).each(function( index,object ) {
-		$(this).append("Test.");
-		//console.log(this);
-	});
-}
 
 // Search
 //  Generic Search Function

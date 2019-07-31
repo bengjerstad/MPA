@@ -1,0 +1,20 @@
+<h1></h1>
+<div id="NewTodo" style="clear:left;display:None;">
+<h2>New ToDo:</h2>
+<br/>Name: <input id="TodoName"/>
+<br/>ActionType: 
+<select id="TodoActionType">
+<option value="Ticket">Ticket</option>
+<option value="Job">Job</option>
+<option value="HowTo">HowTo</option>
+<option value="WebSite">Website</option>
+<option value="Other">Other</option>
+</select>
+<br/>ActionName: <input id="TodoActionName"/>
+<br/>Repeat: <input id="TodoRepeat" type="checkbox" onclick="ShowRepeat();"/>
+<div id="RepeatOptions"></div>
+<br/><a href="#" onclick="AddNewTodo($('#TodoName').val(),$('#TodoActionType').val(),$('#TodoActionName').val(),'No');">Add New Todo</a>
+</div>
+<div id="ViewTodoList" style="clear:left;">
+</div>
+

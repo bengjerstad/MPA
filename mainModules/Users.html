@@ -1,0 +1,35 @@
+<div id="view">
+<div id="viewLeft" style="float:left;">
+	<br/><span id="ADUser_displayName"></span>
+	<br/><span id="ADUser_SamAccountName"></span>
+	<br/><span id="ADUserLableOU" class="ADLabel">OU: </span>
+	<span id="ADUserOU"></span>
+	<br/><span id="ADUserLabelDept" class="ADLabel" onclick="EditModeADUser('ADUserDept');">Dept: </span>
+	<span id="ADUser_Departmentnumber"></span> 
+	<span id="ADUser_department"></span>
+	<br/><span id="ADUserLabelTitle" class="ADLabel" onclick="EditModeADUser('ADUser_title');">Title: </span>
+	<span id="ADUser_title"></span>
+	<br/><span id="ADUserLabelID" class="ADLabel">ID: </span>
+	<span id="ADUser_employeeID"></span>
+	
+	<br/><span id="ADUserLabelPhone" class="ADLabel" onclick="EditModeADUser('ADUser_telephoneNumber');">Phone: </span>
+	<span id="ADUser_telephoneNumber"></span>
+	<br/><span id="ADUserLabelMobile" class="ADLabel" onclick="EditModeADUser('ADUser_mobile');">Mobile: </span>
+	<span id="ADUser_mobile"></span>
+	<br/><span id="ADUserLabelEmail" class="ADLabel" onclick="EditModeADUser('ADUser_mail');">Email: </span>
+	<span id="ADUser_mail"></span>
+		<br/><span id="ADUserLabelStartDatee" class="ADLabel" onclick="EditModeADUser('ADUser_carLicense');">StartDate: </span>
+	<span id="ADUser_carLicense"></span>
+	<br/><span id="ADUser_Label_employeeType" class="ADLabel" onclick="EditModeADUser('ADUser_employeeType');">Employee Type: </span>
+	<span id="ADUser_employeeType"></span>
+	<br/><span id="ADUser_Label_ADUser_userType" class="ADLabel" onclick="EditModeADUser('ADUser_userType');">User Type: </span>
+	<span id="ADUser_userType"></span>
+
+	<div id="ADUser_Actions">
+	<br/><a href="#" onclick="GetGroups($('#ADUser_SamAccountName').text());">Groups</a>
+	</div> 
+</div>
+<div id="viewRight" style="float:left;"></div>
+</div>
+<div id="viewGroups0"></div>
+<div id="viewGroups1" style="float:left;"></div>

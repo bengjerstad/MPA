@@ -163,7 +163,7 @@ function ChangeFreq(){
 }
 
 function AddRepeats(){
-		fs.readFile('todorepeats.json', function (err,output) {
+		fs.readFile('mainModules/Todo.json', function (err,output) {
 		if (err) {console.log(err)}
 		todorepeats = JSON.parse(output);
 		

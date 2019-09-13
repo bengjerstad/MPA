@@ -1,13 +1,15 @@
 //imports
 window.$ = window.jQuery = require('./jquery-3.4.0.min.js');
-const csv=require('csvtojson');
 const exec = require('child_process').exec;
 const fs = require('fs');
 const {shell} = require('electron');
 const electron = require('electron');
+const csv=require('csvtojson');
+const json2csv=require('json-2-csv');
 
 //Set external program and file paths
 var path = {};
+
 //SetPath to folder that conatains data
 path.data = "Data\\";
 //add other programs here.
@@ -16,6 +18,8 @@ path.OtherProgram = "C:\\Program Files\\...";
 //globals
 //  Modules Global
 var Modules = [];
+//DateTimeGlobals
+var today = new Date();
 //  Other Globals
 var AdvSDisabled = 0;
 
@@ -77,7 +81,7 @@ function ClickFirstOption(){
 }
 //  Stat Functions
 function Stat(msg){
-	logmsg = msg+' '+new Date().toLocaleTimeString()+"\r\n";
+	logmsg = msg+' '+today.toLocaleTimeString()+"\r\n";
 	fs.appendFile('statlog.log', logmsg, function (err) {if (err) {console.log(err)}});	 
 	$("#stat").html(logmsg);
 }
@@ -118,14 +122,20 @@ function ClearStat(){
 			if (line.includes('AD Change')){
 				KeepLogStat(line);
 			}
+			if (line.includes('AD Account')){
+				KeepLogStat(line);
+			}
 			if (line.includes('Unlocked account')){
 				KeepLogStat(line);
 			}
-				if (line.includes('R:')){
+			if (line.includes('R:')){
+				KeepLogStat(line);
+			}
+			if (line.includes('new Work Order')){
 				KeepLogStat(line);
 			}
 		});
-		logmsg = 'R:'+new Date().toDateString()+' '+new Date().toLocaleTimeString()+"\r\n";
+		logmsg = 'R:'+today.toDateString()+' '+today.toLocaleTimeString()+"\r\n";
 		fs.writeFile('statlog.log', logmsg, function (err) {if (err) {console.log(err)}});
 	});	
 	
@@ -139,5 +149,33 @@ function Launch(program){
 			Stat('Error: '+error);
 			return;
 		}
+		else{
+			console.log(stdout);
+		}
 	});	
 }
+
+//Functions for Modules to use
+function clearallinputs(Section){
+		$("#"+Section+" > input").each((x,y) =>{
+		var inputs = $(y);
+		if (inputs.attr('type') != 'checkbox'){
+			inputs.val("");
+			//console.log(inputs.val());
+		}
+	});
+}
+async function SaveData(dataname,datafilename,callback){
+	json2csv.json2csvAsync(window[dataname])
+	.then((csvstring) => fs.writeFile(path.data+datafilename, csvstring, 'utf8',(err) => {
+		if(err){console.log(err)}
+		else{
+			//reload data
+			csv().fromFile(path.data+datafilename).then((jsonObj)=>{window[dataname] = jsonObj;})
+			.then(()=>{return true;});
+		}	
+	}))
+	.catch((err) => console.log('ERROR: ' + err.message));
+	return true;
+}
+

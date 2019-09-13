@@ -50,7 +50,7 @@ MyCal.csv Cols: ID,Date,Name,ActionType,ActionName,Done
 MyCal.csv Done col: is Yes or No
 
 Some actions use Functions from Other Modules: Markdown(Line 75), Tickets(Line 77)
-Also need a JSON file named todorepeats.json
+Also need a JSON file named Todo.json
 
 ### Markdown
 Goal: 

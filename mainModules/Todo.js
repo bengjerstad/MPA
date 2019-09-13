@@ -5,14 +5,10 @@
 // MyCal.csv Cols: ID,Date,Name,ActionType,ActionName,Done
 // MyCal.csv Done col: is Yes or No
 // Some actions use Functions from Other Modules: Markdown(Line 75), Tickets(Line 77)
-// Also need a JSON file named todorepeats.json
-
+// Also need a JSON file named Todo.json
 
 //Register Module
 Modules.push('Todo');
-
-//Module Includes
-const json2csv=require('json-2-csv');
 
 //Load Data
 var Mycal;
@@ -33,6 +29,9 @@ csv().fromFile(path.data+'MyCal.csv').then((jsonObj)=>{Mycal = jsonObj;})
 		AddRepeats();
 	}
 	
+
+	})
+.then(()=>{
 	//after data is loaded:
 	$("#viewTodopane").ready(function() {
 		//after view pain is loaded:
@@ -40,12 +39,11 @@ csv().fromFile(path.data+'MyCal.csv').then((jsonObj)=>{Mycal = jsonObj;})
 		//add additional top bar navigation
 		$("#viewTodopane>.viewnav").prepend('<a href="#" onclick="NewToDo();"><img class="nav-icon rot45d" src="images/cancel.svg"/></a>');
 	});
-	});
+});
 
 //Append Links to Nav
 $("#nav1>ul").ready(function() {
 	$("#nav1>ul").append('<hr/>');
-	$("#nav1>ul").append('<li><a href="#" onclick="viewTodos(1);">View Todo</a></li>');
 	$("#nav1>ul").append('<li><a href="#" onclick="viewTodos(0);">Completed</a></li>');
 });
 
@@ -95,6 +93,12 @@ function viewTodos(showdone){
 	if (cnt > 0){
 		$("#viewTodopane").show("fast");
 	}
+	else{
+		//append 'new todo' link if no todo in data.
+		$("#nav1>ul").ready(function() {
+			$("#nav1>ul").append('<a href="#" onclick="NewToDo();"><img class="nav-icon rot45d" src="images/cancel.svg"/>Tasks</a>');
+		});
+	}
 }
 
 function MarkDone(id){
@@ -103,20 +107,10 @@ function MarkDone(id){
 			Mycal[rownumber].Done = 'Yes';
 	   }
 	});
-	SaveData('Mycal');
+	SaveData('Mycal','MyCal.csv')
+	.then((t)=>{viewTodos(1);});
 }
-function SaveData(dataname){
-	json2csv.json2csvAsync(window[dataname])
-	.then((csvstring) => fs.writeFile(path.data+'MyCal.csv', csvstring, 'utf8',(err) => {
-		if(err){console.log(err)}
-	else{
-		//reload data
-		csv().fromFile(path.data+'MyCal.csv').then((jsonObj)=>{Mycal = jsonObj;})
-		.then(()=>{viewTodos(1);});
-	}	
-	}))
-	.catch((err) => console.log('ERROR: ' + err.message));
-}
+
 
 
 function NewToDo(){
@@ -130,7 +124,8 @@ function AddNewTodo(newName,newActionType,newActionName,Done){
 	newID = parseInt(Mycal[CurrentLength-1].ID)+1
 	
 	Mycal[CurrentLength] = {'ID':newID, 'Date':today.toLocaleDateString(),'Name':newName,'ActionType':newActionType,'ActionName':newActionName,'Done':Done}
-	SaveData('Mycal');
+	SaveData('Mycal','MyCal.csv')
+	.then((t)=>{viewTodos(1);});
 	$("#NewTodo").hide("fast");
 }
 function ShowRepeat(){
